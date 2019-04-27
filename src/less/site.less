@@ -1,0 +1,478 @@
+﻿@charset "UTF-8";
+
+//*******变量*******//
+//文字
+@fs: 12px;  //默认字体大小
+@ms: "Microsoft YaHei";   //微软雅黑
+@song: SimSun;   //宋体
+@arial: Arial;   //Arial
+@tahoma: Tahoma;   //Tahoma
+@left: left;
+@right: right;
+@center: center;
+//颜色
+@white: #fff;
+@red: #f00;
+@black: #000;
+@c1: #111;
+@c3: @c1*3;
+@c6: @c1*6;
+@c9: @c1*9;
+//自适应
+@r: 1 / 200rem;
+@rem: 1 / 200rem;
+
+//*******样式*******//
+//Vue.js
+[v-cloak] { display: none }
+
+//*******函数*******//
+//文字
+.fs(@fs:0){
+    font-size: @fs;
+}
+.fw(@fw:bold){
+    font-weight: @fw;
+}
+.fst(@fStyle:italic){
+    font-style: @fStyle;
+}
+.fStyle(@fStyle:italic){
+    font-style: @fStyle;
+}
+.ff(@ff:@ms){
+    font-family: @ff;
+}
+.c(@color:@white){
+    color: @color;
+}
+.color(@color:@white){
+    color: @color;
+}
+.tl(){
+    text-align: left;
+}
+.tr(){
+    text-align: right;
+}
+.tc(){
+    text-align: center;
+}
+.tj(){
+    text-align: justify;
+}
+.va(@pos:middle){
+    vertical-align: @pos;
+}
+.vert(@pos:middle){
+    vertical-align: @pos;
+}
+.lh(@h:1){
+    line-height: @h;
+}
+.lineH(@h:1){
+    line-height: @h;
+}
+.ti(@len: -9999px){
+    text-indent: @len;
+}
+.tIndent(@len: -9999px){
+    text-indent: @len;
+}
+.ms(){
+    font-family: @ms;
+}
+.song(){
+    font-family: @song;
+}
+.arial(){
+    font-family: @arial;
+}
+.tahoma(){
+    font-family: @tahoma;
+}
+
+//图片
+.obj(@fit:cover){
+    object-fit: @fit;
+}
+
+//浮动
+.cb(){
+    zoom: 1;
+    &:after{
+        content: "";
+        display: block;
+        overflow: hidden;
+        clear: both;
+    }
+}
+.clearboth(){
+    zoom: 1;
+    &:after{
+        content: "";
+        display: block;
+        overflow: hidden;
+        clear: both;
+    }
+}
+.fl(){
+    float: @left;
+}
+.fr(){
+    float: @right;
+}
+.fn(){
+    float: none;
+}
+.fNone(){
+    float: none;
+}
+
+//文字溢出省略
+.m-el(@line:2){
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: @line; overflow: hidden;
+}
+.ellipsis(){
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+
+//display
+.bk(){
+    display: block;
+}
+.block(){
+    display: block;
+}
+.il(){
+    display: inline;
+}
+.inline(){
+    display: inline;
+}
+.ib(){
+    display: inline-block;
+}
+.inBlock(){
+    display: inline-block;
+}
+.none(){
+    display: none;
+}
+
+//opacity
+.opac(@val:0){
+    opacity: @val;
+}
+.v(@val:hidden){
+    visibility: @val;
+}
+
+//overflow
+.of(@val:hidden){
+    overflow: @val;
+}
+.ofs(){
+    .of(auto); 
+    -webkit-overflow-scrolling : touch;
+}
+
+//定位
+.abs(@left: 0,@top: 0){
+    position: absolute;
+    top: @top;
+    left: @left;
+}
+.absR(@right: 0,@top: 0){
+    position: absolute;
+    top: @top;
+    right: @right;
+}
+.absB(@left: 0,@bottom: 0){
+    position: absolute;
+    bottom: @bottom;
+    left: @left;
+}
+.absRB(@right: 0,@bottom: 0){
+    position: absolute;
+    bottom: @bottom;
+    right: @right;
+}
+.fixed(@left: 0,@top: 0){
+    position: fixed;
+    top: @top;
+    left: @left;
+}
+.fixedR(@right: 0,@top: 0){
+    position: fixed;
+    top: @top;
+    right: @right;
+}
+.fixedB(@left: 0,@bottom: 0){
+    position: fixed;
+    bottom: @bottom;
+    left: @left;
+}
+.fixedRB(@right: 0,@bottom: 0){
+    position: fixed;
+    bottom: @bottom;
+    right: @right;
+}
+.rel(){
+    position: relative;
+}
+.static(){
+    position: static;
+}
+.zIndex(@num: 0){
+    z-index: @num;
+}
+
+//居中定位
+.centerT(@top:0){
+    position: absolute;
+    top: @top;
+    right: 0;
+    left: 0;
+    .m(auto);
+}
+.centerB(@bottom:0) {
+    position: absolute;
+    bottom: @bottom;
+    right: 0;
+    left: 0;
+    .m(auto);
+}
+.centerL(@left:0){
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: @left;
+    .m(auto);
+}
+.centerR(@right:0){
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: @right;
+    .m(auto);
+}
+.center(){
+    .centerT();
+    bottom: 0;
+}
+.fcenter(){
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    .m(auto);
+}
+
+//CSS3
+.transition(@time: .3s, @fun: ease, @name: all){
+    -webkit-transition: @name @time @fun;
+    transition: @name @time @fun;
+}
+.tdelay(@time:0s){
+    -webkit-transition-delay: @time;
+    transition-delay: @time;
+}
+.translate(@len:0){
+    -webkit-transform: translate(@len);
+    transform: translate(@len);
+}
+.translateY(@len:0){
+    -webkit-transform: translateY(@len);
+    transform: translateY(@len);
+}
+.translateZ(@len:0){
+    -webkit-transform: translateZ(@len);
+    transform: translateZ(@len);
+}
+.translate(@x,@y){
+    -webkit-transform: translate(@x,@y);
+    transform: translate(@x,@y);
+}
+.scale(@times:0){
+    -webkit-transform: scale(@times);
+    transform: scale(@times);
+}
+.rotate(@deg:0deg){
+    -webkit-transform: rotate(@deg);
+    transform: rotate(@deg);
+}
+.rotateY(@deg:0deg){
+    -webkit-transform: rotateY(@deg);
+    transform: rotateY(@deg);
+}
+.anim(@name,@time,@timing:ease,@count:infinite){
+    -webkit-animation: @arguments;
+    animation: @arguments;
+}
+.adelay(@time:0s){
+    -webkit-animation-delay: @time;
+    animation-delay: @time;
+}
+.skew(@x){
+    -webkit-transform: skew(@x);
+    transform: skew(@x);
+}
+.skew(@x,@y){
+    -webkit-transform: skew(@x,@y);
+    transform: skew(@x,@y);
+}
+.skewY(@y){
+    -webkit-transform: skewY(@y);
+    transform: skewY(@y);
+}
+
+//边框
+.b(@color:#eee,@len:1px){  
+    border: @len solid @color;
+}
+.border(@color:#eee,@len:1px){  
+    border: @len solid @color;
+}
+.bl(@color:#eee,@len:1px){  
+    border-left: @len solid @color;
+}
+.borderL(@color:#eee,@len:1px){  
+    border-left: @len solid @color;
+}
+.br(@color:#eee,@len:1px){  
+    border-right: @len solid @color;
+}
+.borderR(@color:#eee,@len:1px){  
+    border-right: @len solid @color;
+}
+.bt(@color:#eee,@len:1px){  
+    border-top: @len solid @color;
+}
+.borderT(@color:#eee,@len:1px){  
+    border-top: @len solid @color;
+}
+.bb(@color:#eee,@len:1px){  
+    border-bottom: @len solid @color;
+}
+.borderB(@color:#eee,@len:1px){  
+    border-bottom: @len solid @color;
+}
+.brs(@len:100%){  //边角弧度
+    border-radius: @len;
+}
+.brs(@lt,@rt,@rb,@lb){  //边角弧度
+    border-radius: @arguments;
+}
+.bRadius(@len:100%){  //边角弧度
+    border-radius: @len;
+}
+.bxs(){
+    box-sizing: border-box;
+}
+.bSizing(){
+    box-sizing: border-box;
+}
+
+//阴影
+.bShadow(@l,@t,@len,@color){
+    -webkit-box-shadow: @l @t @len @color;
+    box-shadow: @l @t @len @color;
+}
+
+//宽高
+.w(@w:100%){
+    width: @w;
+}
+.h(@h:100%){
+    height: @h;
+}
+.wh(@w:100%){
+    width: @w;
+    height: @w;
+}
+.wh(@w,@h){
+    width: @w;
+    height: @h;
+}
+
+//内外边距
+.m(@m:0){
+    margin: @m;
+}
+.m(@m1,@m2){
+    margin: @m1 @m2;
+}
+.m(@m1,@m2,@m3){
+    margin: @m1 @m2 @m3;
+}
+.m(@m1,@m2,@m3,@m4){
+    margin: @m1 @m2 @m3 @m4;
+}
+.ml(@ml:0){
+    margin-left: @ml;
+}
+.mr(@mr:0){
+    margin-right: @mr;
+}
+.mt(@mt:0){
+    margin-top: @mt;
+}
+.mb(@mb:0){
+    margin-bottom: @mb;
+}
+.p(@p:0){
+    padding: @p;
+}
+.p(@p1,@p2){
+    padding: @p1 @p2;
+}
+.p(@p1,@p2,@p3){
+    padding: @p1 @p2 @p3;
+}
+.p(@p1,@p2,@p3,@p4){
+    padding: @p1 @p2 @p3 @p4;
+}
+.pl(@pl:0){
+    padding-left: @pl;
+}
+.pr(@pr:0){
+    padding-right: @pr;
+}
+.pt(@pt:0){
+    padding-top: @pt;
+}
+.pb(@pb:0){
+    padding-bottom: @pb;
+}
+
+//背景
+.bg(@url,@l,@t){
+    background: url(@url) no-repeat @l @t;
+}
+.bgc(@color:@white){
+    background-color: @color;
+}
+.bgColor(@color:@white){
+    background-color: @color;
+}
+.bgs(@size:100%){
+    background-size: @size;
+}
+.bgSize(@size:100%){
+    background-size: @size;
+}
+
+//鼠标样式
+.cr(@cursor:pointer){
+    cursor: @cursor;
+}
+.cursor(@cursor:pointer){
+    cursor: @cursor;
+}
+
+//伪元素
+.ct(@content:''){
+    content: @content;
+}

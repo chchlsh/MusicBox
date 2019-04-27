@@ -1,0 +1,103 @@
+@import "site";
+
+*{ margin: 0; padding: 0;}
+html{ user-select: none;}
+a{ text-decoration: none; color: #333;}
+body{ max-width: 1200px; margin: 0 auto; color: #fff; font-size: 18px; font-family: Arial, "Microsoft Yahei";}
+ul li{ list-style: none;}
+button,img,input,select,textarea{ border: 0; outline: none;}
+
+input[type=range]{
+  outline: none;
+  -webkit-appearance: none;/*清除系统默认样式*/
+  background: -webkit-linear-gradient(#61bd12, #61bd12) no-repeat, #fff;
+  background-size: 0% 100%;/*设置左右宽度比例*/
+  height: 3px;/*横条的高度*/
+}
+/*拖动块的样式*/
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;/*清除系统默认样式*/
+  height:16px;/*拖动块高度*/
+  width: 16px;/*拖动块宽度*/
+  background: #61bd12;/*拖动块背景*/
+  border-radius: 50%; /*外观设置为圆形*/
+  border: solid 1px #fff; /*设置边框*/
+}
+
+.t-shadow(){
+  text-shadow: 1px 1px 8px rgba(0,0,0,.3);
+}
+
+.bg{
+  .fixed(); z-index: -1; .wh(); background: url("../images/bg.jpg") no-repeat center; .bgs(cover); filter: blur(30px); transform: rotate(-90deg) scale(2);
+}
+
+// 乐谱编写说明
+.help{
+  .absR(2%,2%);
+  .icon{
+    .absR(); .wh(20px); background: url("../images/help.svg") no-repeat center; .bgs(); .cr();
+  }
+  .popop{
+    .opac(); .v(); display: flex; .fcenter(); z-index: 1000; .bgc(rgba(0,0,0,.8)); transition: all .3s;
+    &.show{
+      .opac(1); .v(visible);
+      .box{
+        .transition(.4s,cubic-bezier(0.43, 2.18, 0.65, 0.5)); .scale(1);
+      }
+    }
+    .box{
+      .rel(); .w(80%); max-width: 420px; margin: auto; .p(30px,0); .brs(10px); .bgc(); .scale(.2);
+      .close{
+        .absR(10px,6px); .c(#333); .cr();
+      }
+      h2{
+        .pb(20px); .fs(20px); color: #333; .tc();
+      }
+      .content{
+        .p(0,6%);
+        li{
+          .pb(8px); .lh(1.5); .fs(14px); .c(#666);
+          span{
+            .fw();
+          }
+        }
+      }
+    }
+  }
+}
+
+.title{ padding: 6% 0; font-size: 30px; text-align: center; .t-shadow();}
+
+.music-box ul{ display: flex; justify-content: space-between; width: 96%; margin: 0 auto;}
+.music-box li{ flex: 1; position: relative; margin: 0 1px; color: #000; font-size: 14px; cursor: pointer;}
+.music-box li span{ display: block; height: 200px; border-radius: 4px; background-color: #fff; box-shadow: 0 3px 5px rgba(0,0,0,.3), inset 0 -3px 5px rgba(0,0,0,.1);}
+.music-box li.cur span{ background-color: #f1f1f1; box-shadow: inset 0 -3px 5px rgba(0,0,0,.1);}
+.music-box li i{ position: absolute; bottom: 10px; width: 100%; text-align: center; font-style: normal;}
+.music-box li i.low::before,
+.music-box li i.high::before{ content: '·'; position: absolute; left: 0; width: 100%;}
+.music-box li i.low::before{ bottom: -10px;}
+.music-box li i.high::before{ top: -10px;}
+.chord{ .none();}
+
+.form{ width: 96%; margin: 20px auto;}
+.form-grp{ display: flex; align-items: center; padding: 10px 0;}
+.form-grp label{ min-width: 56px; padding-right: 5px; .t-shadow();}
+.form-grp .type{ display: inline-block; padding-right: 20px;}
+.form-grp .type input{ margin-right: 5px;}
+.form-grp.align-top{ align-items: flex-start;}
+#music-text{ flex: 1; height: 100px; padding: 10px; border: 0; border-radius: 4px; font-size: 14px; outline: none; background-color: #fff;}
+.music-name{ flex: 1;}
+.music-name .btn{ position: relative; display: inline-block; margin: 0 8px 4px 0; border-radius: 4px; color: #333; line-height: 30px; font-size: 14px; background-color: #fff; .transition(); cursor: pointer;}
+.music-name .btn:hover{ background-color: #eee;}
+.music-name .btn span{ display: block; padding: 0 10px;}
+.music-name .btn .close{ .absR(-5px,-5px); .wh(10px); .brs(); .bgc(); .tc(); .lh(10px); .fs(8px); color: #333; box-shadow: 0 0 5px #333;}
+#speed{ .wh(120px,4px); border-radius: 2px;}
+#speed-value{ padding: 0 10px;}
+#speed, #speed-value, .unit{ vertical-align: middle; .t-shadow();}
+
+@media screen and (max-width: 414px) {
+  .title{ font-size: 0;}
+  .music-box li span{ height: 30vw;}
+}
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>音乐盒</title>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f0285fd4bc823eaeaaee84058474692c";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="help">
+    <span class="icon"></span>
+    <div class="popop">
+        <div class="box">
+            <div class="close">×</div>
+            <h2>乐谱编写说明</h2>
+            <ul class="content">
+                <li>1. 低音由低到高分别依次对应小写字母（c,d,e,f,g,a,b）</li>
+                <li>2. 中音由低到高分别依次对应数字（1,2,3,4,5,6,7）</li>
+                <li>3. 高音由低到高分别依次对应大写字母（C,D,E,F,G,A,B）</li>
+                <li>4. <span>空格</span>代表四分音符时值，<span>符号"-"</span>代表八分音符时值，<span>符号"="</span>代表十六分音符时值</li>
+                <li>5. 音符紧挨一起则代表同时发声，可用于编写和弦</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<h2 class="title">音乐盒</h2>
+<div class="music-box"></div>
+<div class="chord"></div>
+
+<div class="form">
+    <div class="form-grp align-top">
+        <label>类型：</label>
+        <div class="type-list">
+            <label class="type sine"><input name="type" type="radio" value="sine" />sine</label>
+            <label class="type square"><input name="type" type="radio" value="square" />square</label>
+            <label class="type triangle"><input name="type" type="radio" value="triangle" checked />triangle</label>
+            <label class="type sawtooth"><input name="type" type="radio" value="sawtooth" />sawtooth</label>
+        </div>
+    </div>
+    <div class="form-grp align-top">
+        <label for="music-text">乐谱：</label>
+        <textarea id="music-text" placeholder="输入乐谱后按回车键即可播放音乐哦~"></textarea>
+    </div>
+    <div class="form-grp align-top">
+        <label>曲目：</label>
+        <div class="music-name"></div>
+    </div>
+    <div class="form-grp">
+        <label>速度：</label>
+        <input id="speed" type="range" min="60" max="120" step="5" value="60"><span id="speed-value">60</span><span class="unit">bpm</span>
+    </div>
+</div>
+
+</body>
+</html>
