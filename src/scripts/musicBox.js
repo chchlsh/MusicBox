@@ -17,7 +17,9 @@ class MusicBox {
       autoplay: 60, // 自动弹奏速度
       type: 'sine',  // 音色类型  sine|square|triangle|sawtooth
       duration: 2,  // 键音延长时间
-      volume: 1     // 音量
+      volume: 1,     // 音量
+      mixing: false,  // 混合立体音
+      keyboard: true  // 键盘控制
 
     };
 
@@ -28,11 +30,52 @@ class MusicBox {
     this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     // 音阶频率
-    this.arrFrequency = [262, 294, 330, 349, 392, 440, 494, 523, 587, 659, 698, 784, 880, 988, 1047, 1175, 1319, 1397, 1568, 1760, 1967];
+    // this.arrFrequency = [262, 294, 330, 349, 392, 440, 494, 523, 587, 659, 698, 784, 880, 988, 1047, 1175, 1319, 1397, 1568, 1760, 1967];
+    this.arrFrequency = [
+      { id: -7, value: 131 },
+      { id: -6, value: 147 },
+      { id: -5, value: 165 },
+      { id: -4, value: 175 },
+      { id: -3, value: 196 },
+      { id: -2, value: 220 },
+      { id: -1, value: 247 },
+      /**** 主音域 start ****/
+      { id: 0, value: 262 },
+      { id: 1, value: 294 },
+      { id: 2, value: 330 },
+      { id: 3, value: 349 },
+      { id: 4, value: 392 },
+      { id: 5, value: 440 },
+      { id: 6, value: 494 },
+
+      { id: 7, value: 523 },
+      { id: 8, value: 587 },
+      { id: 9, value: 659 },
+      { id: 10, value: 698 },
+      { id: 11, value: 784 },
+      { id: 12, value: 880 },
+      { id: 13, value: 988 },
+
+      { id: 14, value: 1047 },
+      { id: 15, value: 1175 },
+      { id: 16, value: 1319 },
+      { id: 17, value: 1397 },
+      { id: 18, value: 1568 },
+      { id: 19, value: 1760 },
+      { id: 20, value: 1967 },
+      /**** 主音域 end ****/
+      { id: 21, value: 2089 },
+      { id: 22, value: 2288 },
+      { id: 23, value: 2565 },
+      { id: 24, value: 2716 },
+      { id: 25, value: 3047 },
+      { id: 26, value: 3417 },
+      { id: 27, value: 3832 }
+    ];
     // 音符
-    this.arrNotes = ['c', 'd', 'e', 'f', 'g', 'a', 'b', '1', '2', '3', '4', '5', '6', '7', 'C', 'D', 'E', 'F', 'G', 'A', 'B'];
+    this.arrNotes = ['c', 'd', 'e', 'f', 'g', 'a', 'b',   '1', '2', '3', '4', '5', '6', '7',   'C', 'D', 'E', 'F', 'G', 'A', 'B'];
     // 键码值
-    this.keyCodes = [81, 87, 69, 82, 84, 89, 85, 49, 50, 51, 52, 53, 54, 55, 65, 83, 68, 70, 71, 72, 74];
+    this.keyCodes = [65, 83, 68, 70, 71, 72, 74,  81, 87, 69, 82, 84, 89, 85,  49, 50, 51, 52, 53, 54, 55];
 
     // 绘制钢琴
     this.draw();
@@ -44,17 +87,6 @@ class MusicBox {
     if(this.opts.autoplay){
       this.speed = this.opts.autoplay === true ? this.speed : this.opts.autoplay;
       this.playMusic(this.opts.musicText);
-    }
-
-  }
-
-  // 创建乐音
-  createMusic(note){
-
-    let index = this.arrNotes.indexOf(note);
-
-    if(index !== -1){
-      this.createSound(this.arrFrequency[index]);
     }
 
   }
@@ -87,6 +119,21 @@ class MusicBox {
 
   }
 
+  // 创建立体音（三和弦）
+  createMusic(note){
+
+    let index = this.arrNotes.indexOf(note);
+    let step = 0;
+    if(this.opts.mixing) step = 7;
+
+    if(index !== -1){
+      this.createSound(this.arrFrequency.find(item => item.id === index - step).value);
+      this.createSound(this.arrFrequency.find(item => item.id === index).value);
+      this.createSound(this.arrFrequency.find(item => item.id === index + step).value);
+    }
+
+  }
+
   // 绘制钢琴
   draw(){
 
@@ -97,7 +144,7 @@ class MusicBox {
         noteClass = '';
     let lowHighNote = { c: 1, d: 2, e: 3, f: 4, g: 5, a: 6, b: 7};  // 字母与高低音阶匹配表
 
-    for(let i = 0; i < this.arrFrequency.length; i++){
+    for(let i = 0; i < this.arrNotes.length; i++){
       noteClass = (this.arrNotes[i] >= 'a' && this.arrNotes[i] <= 'g') ? 'low' : ((this.arrNotes[i] >= 'A' && this.arrNotes[i] <= 'G') ? 'high' : '');
       li += '<li><span></span><i class="'+ noteClass +'">'+ (lowHighNote[this.arrNotes[i].toLowerCase()] || this.arrNotes[i]) +'</i></li>'
     }
@@ -106,7 +153,7 @@ class MusicBox {
 
     // 鼠标点击发声
     this.musicBtn = musicBtns.querySelectorAll('li');
-    for(let i = 0; i < this.arrFrequency.length; i++){
+    for(let i = 0; i < this.arrNotes.length; i++){
       this.musicBtn[i].addEventListener('mousedown',(e)=>{
         this.pressBtn(i);
       })
@@ -114,25 +161,22 @@ class MusicBox {
 
     // 鼠标起来时样式消失
     document.addEventListener('mouseup', () => {
-      for(let i = 0; i < this.arrFrequency.length; i++){
+      for(let i = 0; i < this.arrNotes.length; i++){
         this.musicBtn[i].className = '';
       }
     });
-    // document.onmouseup = () => {
-    //   for(let i = 0; i < this.arrFrequency.length; i++){
-    //     this.musicBtn[i].className = '';
-    //   }
-    // };
 
-    // 键盘按键发声
-    document.addEventListener('keydown', (e) => {
-      let nodeName = document.activeElement.nodeName.toLowerCase();
-      if(nodeName !== 'input' && nodeName !== 'textarea'){  // 此时焦点不在input或textarea上
-        if(this.keyCodes.indexOf(e.keyCode) !== -1){
-          this.pressBtn(this.keyCodes.indexOf(e.keyCode));
+    // 键盘按键控制
+    if(this.opts.keyboard){
+      document.addEventListener('keydown', (e) => {
+        let nodeName = document.activeElement.nodeName.toLowerCase();
+        if(nodeName !== 'textarea'){  // 此时焦点不在textarea上
+          if(this.keyCodes.indexOf(e.keyCode) !== -1){
+            this.pressBtn(this.keyCodes.indexOf(e.keyCode));
+          }
         }
-      }
-    });
+      });
+    }
 
   }
 
@@ -140,7 +184,8 @@ class MusicBox {
   pressBtn(i) {
 
     this.musicBtn[i].className = 'cur';
-    this.createSound(this.arrFrequency[i]);
+    this.createMusic(this.arrNotes[i]);
+    // this.createSound(this.arrFrequency[i]);
     setTimeout(() => {
       this.musicBtn[i].className = '';
     },300);
@@ -187,7 +232,7 @@ class MusicBox {
 
   }
 
-  // 暂停播放
+  // 停止播放
   pauseMusic(){
 
     this.paused = true;

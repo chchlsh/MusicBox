@@ -67,7 +67,7 @@ input[type=range]::-webkit-slider-thumb {
   }
 }
 
-.title{ padding: 6% 0; font-size: 30px; text-align: center; .t-shadow();}
+.title{ .p(6%,0); .fs(30px); .tc(); .t-shadow();}
 
 .music-box ul{ display: flex; justify-content: space-between; width: 96%; margin: 0 auto;}
 .music-box li{ flex: 1; position: relative; margin: 0 1px; color: #000; font-size: 14px; cursor: pointer;}
@@ -82,14 +82,34 @@ input[type=range]::-webkit-slider-thumb {
 
 .form{ width: 96%; margin: 20px auto;}
 .form-grp{ display: flex; align-items: center; padding: 10px 0;}
-.form-grp label{ min-width: 56px; padding-right: 5px; .t-shadow();}
-.form-grp .type{ display: inline-block; padding-right: 20px;}
-.form-grp .type input{ margin-right: 5px;}
+.form-grp label { min-width: 56px; padding-right: 5px; .t-shadow();}
+.form-grp .type-list{ display: flex; flex-basis: 400px; .fs(); justify-content: center; border-radius: 4px; .of();}
+.form-grp .type{
+  flex: 1; .p(); .br(); text-shadow: none; .cr();
+  &:last-child{
+    border: 0;
+  }
+  input{
+    .none();
+    &:checked{
+      & + span{
+        .c(); .bgc(#61bd12);
+      }
+    }
+  }
+  span{
+    .bk(); .lh(30px); .c(#333); .tc(); .fs(14px); .bgc(); .transition();
+    &:hover{
+      .bgc(#eee);
+    }
+  }
+}
 .form-grp.align-top{ align-items: flex-start;}
 #music-text{ flex: 1; height: 100px; padding: 10px; border: 0; border-radius: 4px; font-size: 14px; outline: none; background-color: #fff;}
 .music-name{ flex: 1;}
 .music-name .btn{ position: relative; display: inline-block; margin: 0 8px 4px 0; border-radius: 4px; color: #333; line-height: 30px; font-size: 14px; background-color: #fff; .transition(); cursor: pointer;}
 .music-name .btn:hover{ background-color: #eee;}
+.music-name .btn.cur{ color: #61bd12;}
 .music-name .btn span{ display: block; padding: 0 10px;}
 .music-name .btn .close{ .absR(-5px,-5px); .wh(10px); .brs(); .bgc(); .tc(); .lh(10px); .fs(8px); color: #333; box-shadow: 0 0 5px #333;}
 #speed{ .wh(120px,4px); border-radius: 2px;}
