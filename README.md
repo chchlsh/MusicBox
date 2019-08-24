@@ -6,7 +6,7 @@
 /src/scripts/musicBox.js
 ```
 
-### 参数配置：
+### 参数默认配置：
 ```
 {
     loop: false, // 循环播放
