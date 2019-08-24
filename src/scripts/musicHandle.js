@@ -8,13 +8,15 @@ export default class musicHandle{
 
   constructor(){
 
+    // 乐谱数据
     this.initMusicText = [];
+
+    this.oTitle = document.querySelector('.title');
 
     // 音乐类型
     this.aMusicType = document.querySelectorAll('.type input');
     this.oMusicType = document.querySelector('.type input:checked');
 
-    this.oTitle = document.querySelector('.title');
     this.musicTextBox = document.getElementById('music-text');
     this.oMusicName = document.querySelector('.music-name');
     this.oSpeed = document.getElementById('speed');
@@ -34,6 +36,10 @@ export default class musicHandle{
 
   // 初始化
   init(){
+
+    // 背景图片
+    let oBg = document.querySelector('.bg');
+    oBg.src = require(`../images/bg_${ Math.ceil(Math.random() * 4) }.jpg`);
 
     // 乐谱编写说明
     this.help();
@@ -148,7 +154,6 @@ export default class musicHandle{
 
   // 设置音色类型
   setMusicType(typeId){
-    console.log(typeId)
     this.aMusicType[typeId].checked = true;
     this.musicType = this.musicTypes[typeId];
     this.music.setMusicType(this.musicType);
@@ -157,7 +162,6 @@ export default class musicHandle{
   // 获取乐谱列表
   showMusicList() {
 
-    // let recordsJson = localStorage.getItem('musicText');
     let btns = '';
 
     ajax({
@@ -179,6 +183,7 @@ export default class musicHandle{
           this.aMusicName = document.querySelectorAll('.music-name .btn');
           for(let i = 0; i < this.aMusicName.length; i++){
             this.aMusicName[i].addEventListener('click', e => {
+              this.curMusic = i;
               this.chooseMusic(i);
             });
           }
@@ -197,7 +202,7 @@ export default class musicHandle{
     let autoplay = musicText ? Number(this.oSpeed.value) : false;
     return new MusicBox('.music-box', {
       loop: true, // 循环播放
-      musicText: musicText,  // 乐谱
+      musicText: decodeURIComponent(musicText),  // 乐谱
       autoplay: autoplay, // 自动弹奏速度
       type: this.musicType,  // 音色类型  sine|square|triangle|sawtooth
       duration: 3,  // 键音延长时间
@@ -224,7 +229,8 @@ export default class musicHandle{
       this.aMusicName[i].classList.remove('cur');
     }
     this.aMusicName[i].classList.add('cur');
-    this.musicTextBox.value = melodyText;
+    this.paused = false;
+    this.musicTextBox.value = decodeURIComponent(melodyText);
     this.music.pauseMusic();
     this.music = this.playMusic(melodyText);
     // 和弦
@@ -234,7 +240,7 @@ export default class musicHandle{
     if(chordText){
       this.chord = new MusicBox('.chord', {
         loop: true, // 循环播放
-        musicText: chordText,  // 乐谱
+        musicText: decodeURIComponent(chordText),  // 乐谱
         autoplay: this.oSpeed.value, // 自动弹奏速度
         duration: 3,  // 键音延长时间
         volume: .2    // 音量
@@ -252,35 +258,5 @@ export default class musicHandle{
       this.chord.pauseMusic();
     }
   }
-
-  // 保存乐谱
-  // saveMusicText(name, text) {
-  //
-  //   // let sameIndex = this.initMusicText.findIndex(item => item.name === name);  // 找出records中名字为name的项索引
-  //
-  //   $.ajax({
-  //     url: server + 'add',
-  //     dataType: 'json',
-  //     data: { name, text },
-  //     success: (res)=>{
-  //       this.showMusicList();
-  //     }
-  //   });
-  //
-  // }
-  //
-  // // 删除乐谱
-  // deleteMusicText(id) {
-  //
-  //   $.ajax({
-  //     url: server + 'delete',
-  //     dataType: 'json',
-  //     data: { id },
-  //     success: (res)=>{
-  //       this.showMusicList();
-  //     }
-  //   });
-  //
-  // }
 
 }

@@ -3,7 +3,7 @@
 *{ margin: 0; padding: 0;}
 html{ user-select: none;}
 a{ text-decoration: none; color: #333;}
-body{ max-width: 1200px; margin: 0 auto; color: #fff; font-size: 18px; font-family: Arial, "Microsoft Yahei";}
+body{ max-width: 1200px; margin: 0 auto; color: #fff; font-size: 18px; font-family: Arial, "Microsoft Yahei"; .bgc(#222);}
 ul li{ list-style: none;}
 button,img,input,select,textarea{ border: 0; outline: none;}
 
@@ -29,7 +29,9 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .bg{
-  .fixed(); z-index: -1; .wh(); background: url("../images/bg.jpg") no-repeat center; .bgs(cover); filter: blur(30px); transform: rotate(-90deg) scale(2);
+  .fixed(); z-index: -1; .wh(); .obj(cover);
+  filter: blur(10px);
+  transform: scale(1.2);
 }
 
 // 乐谱编写说明
@@ -117,7 +119,7 @@ input[type=range]::-webkit-slider-thumb {
 #speed, #speed-value, .unit{ vertical-align: middle; .t-shadow();}
 
 @media screen and (max-width: 414px) {
-  .title{ font-size: 0;}
+  //.title{ font-size: 0;}
   .music-box li span{ height: 30vw;}
 }
 
